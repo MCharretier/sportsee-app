@@ -48,7 +48,7 @@ function ActivityChart({ data }) {
     return (
         <div className={styles.activityChart}>
             <h2 className={styles.title}>Activité quotidienne</h2>
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" minHeight={320}>
                 <BarChart margin={{top: 25, right: 45, bottom: 25, left: 45}} barGap={8} data={stats}>
                     <CartesianGrid vertical={false} strokeDasharray="4" />
                     <YAxis yAxisId="kilogram" type="number" dataKey="kilogram" domain={['dataMin - 2', 'dataMax + 1']} axisLine={false} orientation="right" tickCount="3" tickLine={false} tick={{fontSize: 14, stroke: '#9b9eac'}} dx={20} />
