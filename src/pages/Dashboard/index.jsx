@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import {
     getUserInformations,
     getUserActivity,
@@ -19,6 +19,7 @@ import FatIcon from '../../assets/images/fat-icon.svg'
 
 function Dashboard() {
     const { id } = useParams()
+    const navigate = useNavigate()
 
     const [userInformations, setUserInformations] = useState()
     const [userActivity, setUserActivity] = useState()
@@ -27,17 +28,21 @@ function Dashboard() {
 
     useEffect(() => {
         const getData = async () => {
-            const informations = await getUserInformations(id)
-            const activity = await getUserActivity(id)
-            const averageSessions = await getUserAverageSessions(id)
-            const performance = await getUserPerformance(id)
-            setUserInformations(informations)
-            setUserActivity(activity)
-            setUserAverageSessions(averageSessions)
-            setUserPerformance(performance)
+            try {
+                const informations = await getUserInformations(id)
+                const activity = await getUserActivity(id)
+                const averageSessions = await getUserAverageSessions(id)
+                const performance = await getUserPerformance(id)
+                setUserInformations(informations)
+                setUserActivity(activity)
+                setUserAverageSessions(averageSessions)
+                setUserPerformance(performance)
+            } catch {
+                navigate('/')
+            }
         }
         getData()
-    }, [id])
+    }, [id, navigate])
 
     return (
         <div className={styles.dashboard}>
